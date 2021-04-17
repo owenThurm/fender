@@ -11,15 +11,14 @@ const Components = {
   button: Button,
 };
 
-export default block => {
+export default (block, editContent) => {
   console.log('block here>>', block)
   if (typeof Components[block.component] !== "undefined") {
     return React.createElement(BlockComponent, {
       key: block._uid,
       block: block,
-      x: block.positionX,
-      y: block.positionY,
       Component: Components[block.component],
+      editContent: editContent,
     });
   }
   return React.createElement(

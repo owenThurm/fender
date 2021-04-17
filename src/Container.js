@@ -16,7 +16,7 @@ const DndFrame = ({ children }) => {
 };
 
 // Don't use the decorator, embed the DnD context within the iframe
-export const Container = ({content, addContent}) => {
+export const Container = ({content, addContent, editContent}) => {
 
   const renderHead = () => {
     // const {styleDependencies} = this.props
@@ -38,7 +38,7 @@ export const Container = ({content, addContent}) => {
           <DndFrame>
             <div>
               <div style={{ overflow: 'hidden', clear: 'both' }}>
-                <Dustbin content={content} addContent={addContent}/>
+                <Dustbin content={content} addContent={addContent} editContent={editContent}/>
               </div>
             </div>
           </DndFrame>

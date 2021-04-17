@@ -1,4 +1,4 @@
-import { Modal } from 'antd';
+import { Modal, InputNumber } from 'antd';
 import Draggable from 'react-draggable';
 import React from 'react';
 
@@ -8,6 +8,7 @@ class ComponentMenu extends React.Component {
     this.state = {
       disabled: false,
       bounds: { left: 0, top: 0, bottom: 0, right: 0 },
+      block: props.block,
     }
   }
 
@@ -36,10 +37,16 @@ class ComponentMenu extends React.Component {
     });
   };
 
+  updateBlock = () => {
+    console.log('updating block');
+    this.props.editContent(this.state.block);
+  }
+
   render() {
-    console.log('re-rendered menu visible:', this.props.visible)
     const { bounds, disabled } = this.state;
-    const { visible } = this.props;
+    const { visible, editContent } = this.props;
+    const { positionX, positionY, style } = this.props.block;
+    console.log(this.props);
     return (
       <>
         <Modal
@@ -83,12 +90,28 @@ class ComponentMenu extends React.Component {
             </Draggable>
           )}
         >
-          <p>
-            Just don&apos;t learn physics at school and your life will be full of magic and
-            miracles.
-          </p>
-          <br />
-          <p>Day before yesterday I saw a rabbit, and yesterday a deer, and today, you.</p>
+          X: <InputNumber onChange={e => {
+            this.setState({
+              block: {
+                _uid: this.state.block._uid,
+                positionX: e,
+                positionY: this.state.block.positionY,
+                style: this.state.block.style,
+                component: this.state.block.component,
+              }
+            }, this.updateBlock)
+          }} defaultValue={positionX}/>
+          Y: <InputNumber onChange={e => {
+            this.setState({
+              block: {
+                _uid: this.state.block._uid,
+                positionX: this.state.block.positionX,
+                positionY: e,
+                style: this.state.block.style,
+                component: this.state.block.component,
+              }
+            }, this.updateBlock)
+          }} defaultValue={positionY}/>
         </Modal>
       </>
     );

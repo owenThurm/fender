@@ -1,9 +1,9 @@
 import { Card } from 'antd';
 
-export default ({x, y, setShowStyleMenu}) => (
+export default ({x, y, style, setShowStyleMenu}) => (
 <>
   <Card
-    style={{position: 'absolute', left: x, top: y}}
+    style={{position: 'absolute', left: x, top: y, ...style}}
     onClick={() => {
       console.log('clicked card');
       setShowStyleMenu(true);

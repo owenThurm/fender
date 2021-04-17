@@ -42,9 +42,26 @@ class App extends React.Component {
       headline: 'new card',
       positionX: x,
       positionY: y,
+      style: {},
     });
     this.setState({
       content: newContent,
+    });
+  }
+
+  editContent = (updatedBlock) => {
+    const newContent = []
+
+    this.state.content.forEach(block => {
+      if(block._uid = updatedBlock._uid) {
+        block.positionX = updatedBlock.positionX
+        block.positionY = updatedBlock.positionY
+        block.style = updatedBlock.style
+      }
+      newContent.push(block);
+    });
+    this.setState({
+      continue: newContent,
     });
   }
 
@@ -53,7 +70,7 @@ class App extends React.Component {
     return (
       <div className="App">
           <DndProvider backend={HTML5Backend}>
-            <Container addContent={this.addContent} content={this.state.content}/>
+            <Container editContent={this.editContent} addContent={this.addContent} content={this.state.content}/>
             <DesignMenu/>
           </DndProvider>
       </div>

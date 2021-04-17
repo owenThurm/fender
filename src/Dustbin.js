@@ -14,7 +14,7 @@ const style = {
     lineHeight: 'normal',
     float: 'left',
 };
-export const Dustbin = ({content, addContent}) => {
+export const Dustbin = ({content, addContent, editContent}) => {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
       accept: ItemTypes.BOX,
       drop: (item, monitor) => {
@@ -31,9 +31,6 @@ export const Dustbin = ({content, addContent}) => {
   }));
 
   const onDrop = (item, offset) => {
-    console.log(offset);
-    console.log(content);
-    console.log(item);
     addContent(item, offset.x, offset.y);
   }
 
@@ -46,8 +43,9 @@ export const Dustbin = ({content, addContent}) => {
       backgroundColor = 'darkkhaki';
   }
   //render json data
+  console.log('rerendered dustbin')
   return (<div ref={drop} style={{ ...style, backgroundColor }}>
     {isActive ? 'Release to drop' : 'Drag a box here'}
-    {content.map(block => Components(block))}
+    {content.map(block => Components(block, editContent))}
   </div>);
 };
