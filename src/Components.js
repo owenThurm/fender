@@ -5,16 +5,19 @@ import React from 'react';
 
 
 const Components = {
-  Input: Input,
-  Card: Card,
-  Button: Button,
+  input: Input,
+  card: Card,
+  button: Button,
 };
 
 export default block => {
+  console.log('block here>>', block)
   if (typeof Components[block.component] !== "undefined") {
     return React.createElement(Components[block.component], {
       key: block._uid,
-      block: block
+      block: block,
+      x: block.positionX,
+      y: block.positionY,
     });
   }
   return React.createElement(

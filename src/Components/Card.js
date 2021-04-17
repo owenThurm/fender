@@ -1,3 +1,3 @@
 import { Card } from 'antd';
 
-export default () => <Card> This is a card </Card>
+export default ({x, y}) => <Card style={{position: 'absolute', left: x, top: y}}> This is a card </Card>

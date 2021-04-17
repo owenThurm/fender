@@ -9,23 +9,20 @@ const style = {
     cursor: 'move',
     float: 'left',
 };
-export const Box = ({ name, addContent }) => {
+export const Box = ({ name, component }) => {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
-        item: { name },
+        item: { name, component },
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult();
             if (item && dropResult) {
                 //append to json model
-                addContent({
-                  component: name,
-                })
             }
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
-    }), [name]);
+    }), [name, component]);
     const opacity = isDragging ? 0.4 : 1;
     return (<div ref={drag} style={{ ...style, opacity }}>
 			{name}

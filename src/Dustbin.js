@@ -14,15 +14,29 @@ const style = {
     lineHeight: 'normal',
     float: 'left',
 };
-export const Dustbin = props => {
+export const Dustbin = ({content, addContent}) => {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
       accept: ItemTypes.BOX,
-      drop: () => ({ name: 'Dustbin' }),
+      drop: (item, monitor) => {
+        let offset = monitor.getSourceClientOffset()
+        if(item && offset) {
+            onDrop(item, offset);
+        }
+        return { name: 'Dustbin' }
+    },
       collect: (monitor) => ({
           isOver: monitor.isOver(),
           canDrop: monitor.canDrop(),
       }),
   }));
+
+  const onDrop = (item, offset) => {
+    console.log(offset);
+    console.log(content);
+    console.log(item);
+    addContent(item, offset.x, offset.y);
+  }
+
   const isActive = canDrop && isOver;
   let backgroundColor = '#222';
   if (isActive) {
@@ -34,7 +48,6 @@ export const Dustbin = props => {
   //render json data
   return (<div ref={drop} style={{ ...style, backgroundColor }}>
     {isActive ? 'Release to drop' : 'Drag a box here'}
-    {console.log(props)}
-    {props.content.map(block => Components(block))}
+    {content.map(block => Components(block))}
   </div>);
 };

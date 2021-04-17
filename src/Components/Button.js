@@ -1,3 +1,3 @@
 import { Button } from 'antd';
 
-export default () => <Button>Click Me</Button>
+export default ({x, y}) => <Button style={{position: 'absolute', left: x, top: y}}>Click Me</Button>

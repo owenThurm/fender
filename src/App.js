@@ -2,7 +2,6 @@ import { Container } from './Container'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import DesignMenu from './DesignMenu';
-import { useState } from 'react';
 import { v4 } from 'uuid';
 import React from 'react';
 
@@ -36,12 +35,13 @@ class App extends React.Component {
     }
   }
 
-  addContent = newBlock => {
-    console.log(this.state)
+  addContent = (newBlock, x , y) => {
     let newContent = this.state.content.concat({
       _uid: v4(),
       component: newBlock.component,
-      headline: 'new card'
+      headline: 'new card',
+      positionX: x,
+      positionY: y,
     });
     this.setState({
       content: newContent,
@@ -49,16 +49,16 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="App">
           <DndProvider backend={HTML5Backend}>
-            <Container content={this.state.content}/>
-            <DesignMenu addContent={this.addContent}/>
+            <Container addContent={this.addContent} content={this.state.content}/>
+            <DesignMenu/>
           </DndProvider>
       </div>
     );
   }
-
 }
 
 export default App;
