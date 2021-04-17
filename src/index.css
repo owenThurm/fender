@@ -1,5 +1,9 @@
 @import '~antd/dist/antd.css';
 
+.ant-input {
+  width: 150px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
