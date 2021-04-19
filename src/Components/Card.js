@@ -4,8 +4,7 @@ export default ({x, y, style, setShowStyleMenu}) => (
 <>
   <Card
     style={{position: 'absolute', left: x, top: y, ...style}}
-    onClick={() => {
-      console.log('clicked card');
+    onDoubleClick={() => {
       setShowStyleMenu(true);
     }}>
     This is a card

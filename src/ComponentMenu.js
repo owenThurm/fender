@@ -15,12 +15,10 @@ class ComponentMenu extends React.Component {
   draggleRef = React.createRef();
 
   handleOk = e => {
-    console.log(e);
     this.props.setShowStyleMenu(false);
   };
 
   handleCancel = e => {
-    console.log(e);
     this.props.setShowStyleMenu(false);
   };
 
