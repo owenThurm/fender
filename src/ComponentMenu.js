@@ -38,13 +38,12 @@ class ComponentMenu extends React.Component {
   };
 
   updateBlock = () => {
-    console.log('updating block');
     this.props.editContent(this.state.block);
   }
 
   render() {
     const { bounds, disabled } = this.state;
-    const { visible, editContent } = this.props;
+    const { visible } = this.props;
     const { positionX, positionY, style } = this.props.block;
     console.log(this.props);
     return (

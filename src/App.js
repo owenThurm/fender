@@ -51,22 +51,20 @@ class App extends React.Component {
 
   editContent = (updatedBlock) => {
     const newContent = []
-
     this.state.content.forEach(block => {
-      if(block._uid = updatedBlock._uid) {
-        block.positionX = updatedBlock.positionX
-        block.positionY = updatedBlock.positionY
-        block.style = updatedBlock.style
+      if(block._uid == updatedBlock._uid) {
+        newContent.push(updatedBlock)
       }
-      newContent.push(block);
+      else {
+        newContent.push(block);
+      }
     });
     this.setState({
-      continue: newContent,
+      content: newContent,
     });
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="App">
           <DndProvider backend={HTML5Backend}>
