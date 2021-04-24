@@ -43,7 +43,6 @@ class ComponentMenu extends React.Component {
     const { bounds, disabled } = this.state;
     const { visible } = this.props;
     const { positionX, positionY, style } = this.props.block;
-    console.log(this.props);
     return (
       <>
         <Modal
