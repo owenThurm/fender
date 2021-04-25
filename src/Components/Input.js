@@ -4,7 +4,7 @@ export default ({setShowStyleMenu}) => (
 <Input
   style={{position: 'absolute'}}
   placeholder='input here'
-  onClick={() => setShowStyleMenu(true)}
+  onDoubleClick={() => setShowStyleMenu(true)}
   />
 )
 
