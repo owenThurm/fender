@@ -1,8 +1,8 @@
 import { Input } from 'antd';
 
-export default ({x, y, setShowStyleMenu}) => (
+export default ({setShowStyleMenu}) => (
 <Input
-  style={{position: 'absolute', left: x, top: y}}
+  style={{position: 'absolute'}}
   placeholder='input here'
   onClick={() => setShowStyleMenu(true)}
   />

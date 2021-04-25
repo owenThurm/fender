@@ -1,8 +1,8 @@
 import { Button } from 'antd';
 
-export default ({x, y, setShowStyleMenu}) => (
+export default ({setShowStyleMenu}) => (
 <Button
-  style={{position: 'absolute', left: x, top: y}}
+  style={{position: 'absolute'}}
   onClick={() => setShowStyleMenu(true)}
   >
   Click Me

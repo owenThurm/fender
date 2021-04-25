@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash';
+import { useState } from 'react';
 
 
 export const copyBlock = (block) => ({
@@ -9,3 +9,8 @@ export const copyBlock = (block) => ({
   positionY: block.positionY,
   style: block.style,
 });
+
+export function useForceUpdate(){
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => value + 1); // update the state to force render
+}
