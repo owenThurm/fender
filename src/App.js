@@ -50,6 +50,7 @@ class App extends React.Component {
   }
 
   editContent = (updatedBlock) => {
+    console.log('called editContent', updatedBlock)
     const newContent = []
     this.state.content.forEach(block => {
       if(block._uid == updatedBlock._uid) {
@@ -61,7 +62,7 @@ class App extends React.Component {
     });
     this.setState({
       content: newContent,
-    });
+    }, console.log('reset state', this.state));
   }
 
   render() {
