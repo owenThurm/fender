@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ComponentMenu from './ComponentMenu';
 import Draggable from 'react-draggable';
 import { copyBlock } from './utils';
@@ -10,10 +10,12 @@ export default ({ block, Component, editContent }) => {
     y: block.position.y,
   })
 
-  const blockPosition = {
-    x: block.position.x,
-    y: block.position.y,
-  }
+  useEffect(() => {
+    setPosition({
+      x: block.position.x,
+      y: block.position.y,
+    })
+  }, [block])
 
   const updatePosition = () => {
     let updatedBlock = copyBlock(block);
@@ -33,7 +35,7 @@ export default ({ block, Component, editContent }) => {
   }
   return(
     <>
-      <Draggable position={blockPosition} defaultPosition={blockPosition} onDrag={handleDrag} onStop={updatePosition}>
+      <Draggable position={position} defaultPosition={position} onDrag={handleDrag} onStop={updatePosition}>
         <div>
           <Component setShowStyleMenu={setShowStyleMenu} style={block.style}/>
         </div>

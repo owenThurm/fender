@@ -43,7 +43,6 @@ class ComponentMenu extends React.Component {
     const { bounds, disabled } = this.state;
     const { visible } = this.props;
     const { position, style } = this.props.block;
-    console.log('re-rendered the menu',  this.props.block.position, position)
     return (
       <>
         <Modal
@@ -105,7 +104,7 @@ class ComponentMenu extends React.Component {
               block: {
                 _uid: this.state.block._uid,
                 position: {
-                  x: this.state.block.position.x,
+                  x: position.x,
                   y: e,
                 },
                 style: this.state.block.style,
