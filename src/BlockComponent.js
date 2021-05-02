@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ComponentMenu from './ComponentMenu';
-import Draggable from 'react-draggable';
-import { copyBlock } from './utils';
+import { Rnd } from 'react-rnd';
+import { dimension, point } from './utils';
 
 export default ({ block, Component, editContent }) => {
   const [showStyleMenu, setShowStyleMenu] = useState(false);
@@ -9,20 +9,24 @@ export default ({ block, Component, editContent }) => {
     x: block.position.x,
     y: block.position.y,
   })
+  const [size, setSize] = useState({
+    width: block.size.width,
+    height: block.size.height,
+  })
 
   useEffect(() => {
     setPosition({
       x: block.position.x,
       y: block.position.y,
     })
+    setSize(dimension(block.size.width, block.size.height))
   }, [block])
 
   const updatePosition = () => {
-    let updatedBlock = copyBlock(block);
     const { x, y } = position;
-    updatedBlock.position = {
-      x: x,
-      y: y,
+    let updatedBlock = {
+      ...block,
+      position: point(x, y),
     }
     editContent(updatedBlock);
   }
@@ -33,13 +37,26 @@ export default ({ block, Component, editContent }) => {
       y: y + ui.deltaY
     }))
   }
+
+  const updateSize = (e, direction, ref) => {
+    console.log('stopping resizing...', ref.style.width)
+    let updatedBlock = {
+      ...block,
+      size: dimension(ref.style.width, ref.style.height),
+    }
+    editContent(updatedBlock);
+  }
+
   return(
     <>
-      <Draggable position={position} defaultPosition={position} onDrag={handleDrag} onStop={updatePosition}>
-        <div>
+      <Rnd
+      onResizeStop={updateSize}
+      size={size}
+      position={position}
+      onDrag={handleDrag}
+      onDragStop={updatePosition}>
           <Component setShowStyleMenu={setShowStyleMenu} style={block.style}/>
-        </div>
-      </Draggable>
+      </Rnd>
       <ComponentMenu editContent={editContent} block={block} setShowStyleMenu={setShowStyleMenu} visible={showStyleMenu}/>
     </>
   )

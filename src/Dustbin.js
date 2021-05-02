@@ -31,6 +31,7 @@ export const Dustbin = ({content, addContent, editContent}) => {
   }));
 
   const onDrop = (item, offset) => {
+    console.log(item)
     addContent(item, offset.x, offset.y);
   }
 
@@ -43,7 +44,6 @@ export const Dustbin = ({content, addContent, editContent}) => {
       backgroundColor = 'darkkhaki';
   }
   //render json data
-  console.log('rerendered dustbin')
   return (<div ref={drop} style={{ ...style, backgroundColor }}>
     {isActive ? 'Release to drop' : 'Drag a box here'}
     {content.map(block => Components(block, editContent))}

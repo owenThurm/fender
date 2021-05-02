@@ -4,27 +4,18 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import DesignMenu from './DesignMenu';
 import { v4 } from 'uuid';
 import React from 'react';
+import { dimension } from './utils';
 
-const data = {
-  content: {
-    body: [
-      {
-        _uid: "BUY6Drn9e1",
-        component: "Input",
-        headline: "Input 1"
-      },
-      {
-        _uid: "gJZoSLkfZV",
-        component: "Card",
-        title: "Card 1"
-      },
-      {
-        _uid: "X1JAfdsZxy",
-        component: "Input",
-        headline: "Input 2"
-      }
-    ]
-  }
+const componentDefaultAttributes = {
+  input: {
+    defaultSize: dimension(200, 70),
+  },
+  card: {
+    defaultSize: dimension(400, 200),
+  },
+  button: {
+    defaultSize: dimension(200, 70),
+  },
 }
 
 class App extends React.Component {
@@ -36,7 +27,8 @@ class App extends React.Component {
   }
 
   addContent = (newBlock, x , y) => {
-    console.log('adding block at', x, y)
+    const { defaultSize } = componentDefaultAttributes[newBlock.component];
+    console.log(defaultSize)
     let newContent = this.state.content.concat({
       _uid: v4(),
       component: newBlock.component,
@@ -45,6 +37,7 @@ class App extends React.Component {
         x: x,
         y: y,
       },
+      size: defaultSize,
       style: {},
     });
     this.setState({
@@ -53,7 +46,7 @@ class App extends React.Component {
   }
 
   editContent = (updatedBlock) => {
-    console.log('called editContent', updatedBlock)
+    console.log('edit content called', updatedBlock)
     const newContent = []
     this.state.content.forEach(block => {
       if(block._uid == updatedBlock._uid) {
@@ -65,10 +58,11 @@ class App extends React.Component {
     });
     this.setState({
       content: newContent,
-    }, console.log('reset state', this.state));
+    });
   }
 
   render() {
+    console.log(this.state)
     return (
       <div className="App">
           <DndProvider backend={HTML5Backend}>
