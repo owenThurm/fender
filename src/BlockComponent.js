@@ -15,8 +15,6 @@ export default ({ block, Component, editContent }) => {
     y: block.positionY,
   }
 
-  const draggleRef = React.createRef();
-
   const updatePosition = () => {
     let updatedBlock = copyBlock(block);
     const { x, y } = position;
@@ -35,7 +33,7 @@ export default ({ block, Component, editContent }) => {
   return(
     <>
       <Draggable position={null} defaultPosition={blockPosition} onDrag={handleDrag} onStop={updatePosition}>
-        <div ref={draggleRef}>
+        <div>
           <Component setShowStyleMenu={setShowStyleMenu} style={block.style}/>
         </div>
       </Draggable>
