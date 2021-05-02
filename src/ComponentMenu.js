@@ -42,7 +42,7 @@ class ComponentMenu extends React.Component {
   render() {
     const { bounds, disabled } = this.state;
     const { visible } = this.props;
-    const { positionX, positionY, style } = this.props.block;
+    const { position, style } = this.props.block;
     return (
       <>
         <Modal
@@ -90,24 +90,28 @@ class ComponentMenu extends React.Component {
             this.setState({
               block: {
                 _uid: this.state.block._uid,
-                positionX: e,
-                positionY: this.state.block.positionY,
+                position: {
+                  x: e,
+                  y: position.y
+                },
                 style: this.state.block.style,
                 component: this.state.block.component,
               }
             }, this.updateBlock)
-          }} defaultValue={positionX}/>
+          }} defaultValue={position.x}/>
           Y: <InputNumber onChange={e => {
             this.setState({
               block: {
                 _uid: this.state.block._uid,
-                positionX: this.state.block.positionX,
-                positionY: e,
+                position: {
+                  x: this.state.block.position.x,
+                  y: e,
+                },
                 style: this.state.block.style,
                 component: this.state.block.component,
               }
             }, this.updateBlock)
-          }} defaultValue={positionY}/>
+          }} defaultValue={position.y}/>
         </Modal>
       </>
     );

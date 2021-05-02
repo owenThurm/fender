@@ -6,20 +6,23 @@ import { copyBlock } from './utils';
 export default ({ block, Component, editContent }) => {
   const [showStyleMenu, setShowStyleMenu] = useState(false);
   const [position, setPosition] = useState({
-    x: block.positionX,
-    y: block.positionY,
+    x: block.position.x,
+    y: block.position.y,
   })
 
   const blockPosition = {
-    x: block.positionX,
-    y: block.positionY,
+    x: block.position.x,
+    y: block.position.y,
   }
 
+  console.log('re-rendered block', block.position)
   const updatePosition = () => {
     let updatedBlock = copyBlock(block);
     const { x, y } = position;
-    updatedBlock.positionX = x;
-    updatedBlock.positionY = y;
+    updatedBlock.position = {
+      x: x,
+      y: y,
+    }
     editContent(updatedBlock);
   }
 
@@ -29,7 +32,6 @@ export default ({ block, Component, editContent }) => {
       y: y + ui.deltaY
     }))
   }
-
   return(
     <>
       <Draggable position={null} defaultPosition={blockPosition} onDrag={handleDrag} onStop={updatePosition}>

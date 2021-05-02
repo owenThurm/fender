@@ -41,8 +41,10 @@ class App extends React.Component {
       _uid: v4(),
       component: newBlock.component,
       headline: 'new card',
-      positionX: x,
-      positionY: y,
+      position: {
+        x: x,
+        y: y,
+      },
       style: {},
     });
     this.setState({

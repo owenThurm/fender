@@ -5,8 +5,10 @@ export const copyBlock = (block) => ({
   _uid: block._uid,
   component: block.component,
   headline: block.headline,
-  positionX: block.positionX,
-  positionY: block.positionY,
+  position: {
+    x: block.position.x,
+    y: block.position.y,
+  },
   style: block.style,
 });
 
