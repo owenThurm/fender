@@ -43,6 +43,7 @@ class ComponentMenu extends React.Component {
     const { bounds, disabled } = this.state;
     const { visible } = this.props;
     const { position, style } = this.props.block;
+    console.log('re-rendered the menu',  this.props.block.position, position)
     return (
       <>
         <Modal
@@ -98,7 +99,7 @@ class ComponentMenu extends React.Component {
                 component: this.state.block.component,
               }
             }, this.updateBlock)
-          }} defaultValue={position.x}/>
+          }} defaultValue={position.x} value={position.x}/>
           Y: <InputNumber onChange={e => {
             this.setState({
               block: {
@@ -111,7 +112,7 @@ class ComponentMenu extends React.Component {
                 component: this.state.block.component,
               }
             }, this.updateBlock)
-          }} defaultValue={position.y}/>
+          }} defaultValue={position.y} value={position.y}/>
         </Modal>
       </>
     );

@@ -15,7 +15,6 @@ export default ({ block, Component, editContent }) => {
     y: block.position.y,
   }
 
-  console.log('re-rendered block', block.position)
   const updatePosition = () => {
     let updatedBlock = copyBlock(block);
     const { x, y } = position;
@@ -34,7 +33,7 @@ export default ({ block, Component, editContent }) => {
   }
   return(
     <>
-      <Draggable position={null} defaultPosition={blockPosition} onDrag={handleDrag} onStop={updatePosition}>
+      <Draggable position={blockPosition} defaultPosition={blockPosition} onDrag={handleDrag} onStop={updatePosition}>
         <div>
           <Component setShowStyleMenu={setShowStyleMenu} style={block.style}/>
         </div>
