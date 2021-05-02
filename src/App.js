@@ -36,6 +36,7 @@ class App extends React.Component {
   }
 
   addContent = (newBlock, x , y) => {
+    console.log('adding block at', x, y)
     let newContent = this.state.content.concat({
       _uid: v4(),
       component: newBlock.component,

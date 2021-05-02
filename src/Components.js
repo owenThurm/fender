@@ -12,7 +12,6 @@ const Components = {
 };
 
 export default (block, editContent) => {
-  console.log('block here>>', block)
   if (typeof Components[block.component] !== "undefined") {
     return React.createElement(BlockComponent, {
       key: block._uid,
@@ -21,6 +20,7 @@ export default (block, editContent) => {
       editContent: editContent,
     });
   }
+  console.log('upd')
   return React.createElement(
     () => <div>The component {block.component} has not been created yet.</div>,
     { key: block._uid }
