@@ -59,6 +59,7 @@ class App extends React.Component {
     this.setState({
       content: newContent,
     });
+    
   }
 
   render() {

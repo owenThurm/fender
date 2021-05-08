@@ -100,6 +100,7 @@ class ComponentMenu extends React.Component {
             }, this.updateBlock)
           }} defaultValue={position.x} value={position.x}/>
           Y: <InputNumber onChange={e => {
+            console.log("Event:", e)
             this.setState({
               block: {
                 _uid: this.state.block._uid,

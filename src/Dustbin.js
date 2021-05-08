@@ -43,9 +43,14 @@ export const Dustbin = ({content, addContent, editContent}) => {
   else if (canDrop) {
       backgroundColor = 'darkkhaki';
   }
+  // console.log("CONTENT");
+  // console.log(content);
+
+  // Check for overlaps here
+
   //render json data
   return (<div ref={drop} style={{ ...style, backgroundColor }}>
     {isActive ? 'Release to drop' : 'Drag a box here'}
-    {content.map(block => Components(block, editContent))}
+    {content.map(block => Components(block, editContent,content))}
   </div>);
 };
