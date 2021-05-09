@@ -75,6 +75,19 @@ export default ({ block, Component, editContent, content }) => {
       newY = block.position.y - delta.height;
     }
 
+    else if (direction == "topLeft") {
+      newX = block.position.x - delta.width;
+      newY = block.position.y - delta.height;
+    }
+
+    else if (direction == "topRight") {
+      newY = block.position.y - delta.height;
+    }
+
+    else if (direction == "bottomLeft") {
+      newX = block.position.x - delta.width;
+    }
+
     let updatedBlock = {
       ...block,
       size: dimension(ref.style.width, ref.style.height),
