@@ -38,8 +38,8 @@ export default ({ block, Component, editContent, content }) => {
       for(var j = i + 1; j < content.length; j++) {
 
         if (
-          (Math.abs(content[i].position.x - content[j].position.x) < 30) && 
-          (Math.abs(content[i].position.y - content[j].position.y) < 30)
+          (Math.abs(content[i].position.x - content[j].position.x) < 80) && 
+          (Math.abs(content[i].position.y - content[j].position.y) < 80)
           ) {
           console.log("HOLY, TWO ELEMENTS OVERLAP");
         }
@@ -51,17 +51,49 @@ export default ({ block, Component, editContent, content }) => {
 
   const handleDrag = (e, ui) => {
     //console.log(ui);
-    setPosition(({ x, y }) => ({
+    //console.log(document.querySelector(".outside").getBoundingClientRect())
+    let boundingRect = document.querySelector(".outside").getBoundingClientRect()
+    console.log("SIZE:",size);
+    console.log("POSITION:",position);
+    if (position.x < 0) {
+      setPosition({x:0, y:position.y});
+      return
+    }
+
+    else if (position.y < 0) {
+      setPosition({x: position.x, y: 0});
+      return
+    }
+
+    else if (position.x + size.width > boundingRect.width) {
+      console.log("NRDJKnjesfbjehbfahbhabsehfh");
+      setPosition({x: boundingRect.width - size.width, y: position.y});
+      return
+    }
+
+    else if (position.y + size.height > boundingRect.height) {
+      setPosition({x: position.x, y: boundingRect.height - size.height});
+      return
+    }
+
+    
+
+
+    setPosition(({ x, y }) => {
+      return ({   
       x: x + ui.deltaX,
       y: y + ui.deltaY
-    }))
-    
+      })
+    });
+  
   }
 
   const updateSize = (e, direction, ref, delta) => {
-    console.log('stopping resizing...', ref.style.width)
-    console.log(e);
-    console.log(direction);
+    //console.log(ref);
+    //console.log('stopping resizing...', ref.style.width)
+    setSize({width: parseInt(ref.style.width), height: parseInt(ref.style.height)});
+    //console.log(e);
+    //console.log(direction);
     
    
     console.log("DELTA: ", delta);
@@ -88,9 +120,10 @@ export default ({ block, Component, editContent, content }) => {
       newX = block.position.x - delta.width;
     }
 
+
     let updatedBlock = {
       ...block,
-      size: dimension(ref.style.width, ref.style.height),
+      size: dimension(parseInt(ref.style.width), parseInt(ref.style.height)),
       position: {x: newX, y: newY},
        
     }

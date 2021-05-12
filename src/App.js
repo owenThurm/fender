@@ -5,6 +5,8 @@ import DesignMenu from './DesignMenu';
 import { v4 } from 'uuid';
 import React from 'react';
 import { dimension } from './utils';
+import { Row, Col } from 'antd';
+
 
 const componentDefaultAttributes = {
   input: {
@@ -26,7 +28,7 @@ class App extends React.Component {
     }
   }
 
-  addContent = (newBlock, x , y) => {
+  addContent = (newBlock, x, y) => {
     const { defaultSize } = componentDefaultAttributes[newBlock.component];
     console.log(defaultSize)
     let newContent = this.state.content.concat({
@@ -49,7 +51,7 @@ class App extends React.Component {
     console.log('edit content called', updatedBlock)
     const newContent = []
     this.state.content.forEach(block => {
-      if(block._uid == updatedBlock._uid) {
+      if (block._uid == updatedBlock._uid) {
         newContent.push(updatedBlock)
       }
       else {
@@ -59,17 +61,23 @@ class App extends React.Component {
     this.setState({
       content: newContent,
     });
-    
+
   }
 
   render() {
     console.log(this.state)
     return (
       <div className="App">
-          <DndProvider backend={HTML5Backend}>
-            <Container editContent={this.editContent} addContent={this.addContent} content={this.state.content}/>
-            <DesignMenu/>
-          </DndProvider>
+        <DndProvider backend={HTML5Backend}>
+          <Row gutter={40}>
+            <Col>
+              <Container editContent={this.editContent} addContent={this.addContent} content={this.state.content} />
+            </Col>
+            <Col>
+              <DesignMenu />
+            </Col>
+          </Row>
+        </DndProvider>
       </div>
     );
   }

@@ -89,13 +89,12 @@ class ComponentMenu extends React.Component {
           X: <InputNumber onChange={e => {
             this.setState({
               block: {
-                _uid: this.state.block._uid,
+                ...this.state.block,
                 position: {
                   x: e,
                   y: position.y
                 },
-                style: this.state.block.style,
-                component: this.state.block.component,
+               
               }
             }, this.updateBlock)
           }} defaultValue={position.x} value={position.x}/>
@@ -103,13 +102,11 @@ class ComponentMenu extends React.Component {
             console.log("Event:", e)
             this.setState({
               block: {
-                _uid: this.state.block._uid,
+                ...this.state.block,
                 position: {
                   x: position.x,
                   y: e,
                 },
-                style: this.state.block.style,
-                component: this.state.block.component,
               }
             }, this.updateBlock)
           }} defaultValue={position.y} value={position.y}/>

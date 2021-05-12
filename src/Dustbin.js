@@ -13,6 +13,7 @@ const style = {
     fontSize: '1rem',
     lineHeight: 'normal',
     float: 'left',
+    overflow: 'hidden'
 };
 export const Dustbin = ({content, addContent, editContent}) => {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -49,7 +50,8 @@ export const Dustbin = ({content, addContent, editContent}) => {
   // Check for overlaps here
 
   //render json data
-  return (<div ref={drop} style={{ ...style, backgroundColor }}>
+  console.log("meow");
+  return (<div class="dustbin" ref={drop} style={{ ...style, backgroundColor }}>
     {isActive ? 'Release to drop' : 'Drag a box here'}
     {content.map(block => Components(block, editContent,content))}
   </div>);
