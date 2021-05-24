@@ -18,7 +18,7 @@ export default ({ block, Component, editContent, content }) => {
       translate: [0,0],
   });
   React.useEffect(() => {
-      setTarget(document.querySelector(`.${block._uid}`));
+      setTarget(document.querySelector(`.${'a' + block._uid}`));
   }, []);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export default ({ block, Component, editContent, content }) => {
   return(
     <>
       <div className="container">
-        <Component position={position} size={size} className={`${block._uid}`} setShowStyleMenu={setShowStyleMenu} style={block.style}/>
+        <Component position={position} size={size} className={`${'a' + block._uid}`} setShowStyleMenu={setShowStyleMenu} style={block.style}/>
 
         <Moveable
             target={target}
