@@ -20,13 +20,13 @@ export default ({ block, Component, editContent, content }) => {
   const [elementGuidelines, setElementGuidelines] = React.useState([]);
   React.useEffect(() => {
       setTarget(document.querySelector(`.${'a' + block._uid}`));
-      let elementGuidelines = [];
+      let elements = [];
       content.forEach(({ _uid }) => {
         if(_uid !== block._uid) {
-          elementGuidelines.push(document.querySelector(`.${'a' + _uid}`))
+          elements.push(document.querySelector(`.${'a' + _uid}`))
         }
       })
-      setElementGuidelines(elementGuidelines);
+      setElementGuidelines(elements);
   }, []);
 
   useEffect(() => {
