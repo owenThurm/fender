@@ -17,8 +17,15 @@ export default ({ block, Component, editContent, content }) => {
   const [frame, setFrame] = React.useState({
       translate: [0,0],
   });
+  console.log(content);
+  const [elementGuidelines, setElementGuidelines] = React.useState([]);
   React.useEffect(() => {
       setTarget(document.querySelector(`.${'a' + block._uid}`));
+      let elementGuidelines = [];
+      content.forEach(({ _uid }) => {
+        elementGuidelines.push(document.querySelector(`.${'a' + _uid}`))
+      })
+      setElementGuidelines(elementGuidelines);
   }, []);
 
   useEffect(() => {
@@ -73,6 +80,8 @@ export default ({ block, Component, editContent, content }) => {
             target={target}
             draggable={true}
             resizable={true}
+            snappable={true}
+            elementGuidelines={elementGuidelines}
             throttleDrag={0}
             startDragRotate={0}
             throttleDragRotate={0}
