@@ -9,6 +9,7 @@ export default ({ block, Component, editContent, content }) => {
     x: block.position.x,
     y: block.position.y,
   })
+  const [showMoveable, setShowMoveAble] = useState(false);
   const [size, setSize] = useState({
     width: block.size.width,
     height: block.size.height,
@@ -75,9 +76,9 @@ export default ({ block, Component, editContent, content }) => {
   return(
     <>
       <div className="container">
-        <Component position={position} size={size} className={`${'a' + block._uid}`} setShowStyleMenu={setShowStyleMenu} style={block.style}/>
+        <Component setShowMoveable={setShowMoveAble} position={position} size={size} className={`${'a' + block._uid}`} setShowStyleMenu={setShowStyleMenu} style={block.style}/>
 
-        <Moveable
+        {showMoveable ? <Moveable
             target={target}
             draggable={true}
             resizable={true}
@@ -103,7 +104,7 @@ export default ({ block, Component, editContent, content }) => {
                 e.target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`;
             }}
             onResizeEnd={updateSize}
-        />
+        /> : ''}
       </div>
       <ComponentMenu editContent={editContent} block={block} setShowStyleMenu={setShowStyleMenu} visible={showStyleMenu}/>
     </>
