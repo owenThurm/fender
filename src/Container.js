@@ -33,17 +33,14 @@ export const Container = ({content, addContent, editContent}) => {
     // If neither the prop or the context value for 'window' are present, the DndProvider
     // will just use the global window.
     return (
-      <div class="outside">
-        <Frame scrolling="no" class="frame" head={renderHead()} style={{ width: '800px', height: '400px', overflow: 'hidden', scrolling: 'no' }}>
-          <DndFrame>
-            
-            <div class="container">
-              
+      <div class="outside"><DndFrame>
+
+            <div class="container" style={{width: 800}}>
+
             <Dustbin  content={content} addContent={addContent} editContent={editContent}/>
-              
+
             </div>
           </DndFrame>
-        </Frame>
         </div>
       );
 };

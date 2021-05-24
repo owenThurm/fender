@@ -1,12 +1,12 @@
 import { Card } from 'antd';
 
-export default ({style, setShowStyleMenu}) => (
-<>
+export default ({className, position, size, style, setShowStyleMenu}) => (
   <Card
-    style={{position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', ...style}}
+    className={className}
+    style={{position: 'absolute', left: position.x, top: position.y, width: size.width, height: size.height, ...style}}
     onDoubleClick={() => {
       setShowStyleMenu(true);
     }}>
     This is a card
   </Card>
-</>)
+)

@@ -50,7 +50,6 @@ export const Dustbin = ({content, addContent, editContent}) => {
   // Check for overlaps here
 
   //render json data
-  console.log("meow");
   return (<div class="dustbin" ref={drop} style={{ ...style, backgroundColor }}>
     {isActive ? 'Release to drop' : 'Drag a box here'}
     {content.map(block => Components(block, editContent,content))}

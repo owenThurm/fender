@@ -30,7 +30,6 @@ class App extends React.Component {
 
   addContent = (newBlock, x, y) => {
     const { defaultSize } = componentDefaultAttributes[newBlock.component];
-    console.log(defaultSize)
     let newContent = this.state.content.concat({
       _uid: v4(),
       component: newBlock.component,
@@ -46,6 +45,7 @@ class App extends React.Component {
       content: newContent,
     });
   }
+
 
   editContent = (updatedBlock) => {
     console.log('edit content called', updatedBlock)
