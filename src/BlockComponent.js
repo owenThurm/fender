@@ -17,7 +17,6 @@ export default ({ block, Component, editContent, content }) => {
   const [frame, setFrame] = React.useState({
       translate: [0,0],
   });
-  console.log(content);
   const [elementGuidelines, setElementGuidelines] = React.useState([]);
   React.useEffect(() => {
       setTarget(document.querySelector(`.${'a' + block._uid}`));
