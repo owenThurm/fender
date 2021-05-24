@@ -1,8 +1,9 @@
 import { Button } from 'antd';
 
-export default ({setShowStyleMenu, style}) => (
+export default ({className, position, size, setShowStyleMenu, style}) => (
 <Button
-  style={{position: 'absolute', left: 0, top: 0, height: '100%', width: '100%', ...style}}
+  className={className}
+  style={{position: 'absolute', left: position.x, top: position.y, height: size.height, width: size.width, ...style}}
   onDoubleClick={() => setShowStyleMenu(true)}
   >
   Click Me
