@@ -22,7 +22,9 @@ export default ({ block, Component, editContent, content }) => {
       setTarget(document.querySelector(`.${'a' + block._uid}`));
       let elementGuidelines = [];
       content.forEach(({ _uid }) => {
-        elementGuidelines.push(document.querySelector(`.${'a' + _uid}`))
+        if(_uid !== block._uid) {
+          elementGuidelines.push(document.querySelector(`.${'a' + _uid}`))
+        }
       })
       setElementGuidelines(elementGuidelines);
   }, []);
