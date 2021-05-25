@@ -48,7 +48,6 @@ class App extends React.Component {
 
 
   editContent = (updatedBlock) => {
-    console.log('edit content called', updatedBlock)
     const newContent = []
     this.state.content.forEach(block => {
       if (block._uid == updatedBlock._uid) {
@@ -65,7 +64,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="App">
         <DndProvider backend={HTML5Backend}>
