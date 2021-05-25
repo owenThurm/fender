@@ -9,15 +9,9 @@ export default ({ block, Component, editContent, content }) => {
     x: block.position.x,
     y: block.position.y,
   })
+  const [size, setSize] = useState(block.size)
   const [showMoveable, setShowMoveAble] = useState(false);
-  const [size, setSize] = useState({
-    width: block.size.width,
-    height: block.size.height,
-  })
   const [target, setTarget] = React.useState();
-  const [frame, setFrame] = React.useState({
-      translate: [0,0],
-  });
   const [elementGuidelines, setElementGuidelines] = React.useState([]);
   React.useEffect(() => {
       setTarget(document.querySelector(`.${'a' + block._uid}`));
@@ -30,14 +24,6 @@ export default ({ block, Component, editContent, content }) => {
       setElementGuidelines(elements);
   }, []);
 
-  useEffect(() => {
-    setPosition({
-      x: block.position.x,
-      y: block.position.y,
-    })
-    setSize(dimension(block.size.width, block.size.height))
-  }, [block])
-
   const updatePosition = () => {
     const { x, y } = position;
     let updatedBlock = {
@@ -45,25 +31,15 @@ export default ({ block, Component, editContent, content }) => {
       position: point(x, y),
     }
     editContent(updatedBlock);
-
-
-    // Check for overlap of any two elements
-    for(var i = 0; i < content.length; i++){
-      for(var j = i + 1; j < content.length; j++) {
-
-        if (
-          (Math.abs(content[i].position.x - content[j].position.x) < 80) &&
-          (Math.abs(content[i].position.y - content[j].position.y) < 80)
-          ) {
-          console.log("HOLY, TWO ELEMENTS OVERLAP");
-        }
-
-      }
-    }
   }
 
   const updateSize = () => {
-    console.log('update size called')
+    let updatedBlock = {
+      ...block,
+      size: size,
+      position: position,
+    }
+    editContent(updatedBlock);
   }
 
   const onDrag = e => {
@@ -73,10 +49,32 @@ export default ({ block, Component, editContent, content }) => {
     }));
   }
 
+  const onResize = ({ direction, delta }) => {
+
+    const deltaX = delta[0]
+    const deltaY = delta[1]
+
+    setSize(({ width, height }) => dimension(width + deltaX, height + deltaY));
+    if(direction[0] === -1 && direction[1] === -1) {
+      setPosition(({x, y}) => point(x - deltaX, y - deltaY));
+    } else if(direction[0] === -1 && direction[1] === 1) {
+      setPosition(({x, y}) => point(x - deltaX, y));
+    } else if (direction[0] === 1 && direction[1] === -1) {
+      setPosition(({x, y}) => point(x, y - deltaY));
+    }
+  }
+
   return(
     <>
       <div className="container">
-        <Component setShowMoveable={setShowMoveAble} position={position} size={size} className={`${'a' + block._uid}`} setShowStyleMenu={setShowStyleMenu} style={block.style}/>
+        <Component
+          setShowMoveable={setShowMoveAble}
+          position={position}
+          size={size}
+          className={`${'a' + block._uid}`}
+          setShowStyleMenu={setShowStyleMenu}
+          style={block.style}
+        />
 
         {showMoveable ? <Moveable
             target={target}
@@ -96,17 +94,7 @@ export default ({ block, Component, editContent, content }) => {
             padding={{"left":0,"top":0,"right":0,"bottom":0}}
             onDrag={onDrag}
             onDragEnd={updatePosition}
-            onResizeStart={e => {
-              e.setOrigin(["%", "%"]);
-              e.dragStart && e.dragStart.set(frame.translate);
-            }}
-            onResize={e => {
-                const beforeTranslate = e.drag.beforeTranslate;
-                frame.translate = beforeTranslate;
-                e.target.style.width = `${e.width}px`;
-                e.target.style.height = `${e.height}px`;
-                e.target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`;
-            }}
+            onResize={onResize}
             onResizeEnd={updateSize}
         /> : ''}
       </div>
