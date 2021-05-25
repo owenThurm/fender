@@ -32,7 +32,6 @@ export const Dustbin = ({content, addContent, editContent}) => {
   }));
 
   const onDrop = (item, offset) => {
-    console.log(item)
     addContent(item, offset.x, offset.y);
   }
 
@@ -44,10 +43,6 @@ export const Dustbin = ({content, addContent, editContent}) => {
   else if (canDrop) {
       backgroundColor = 'darkkhaki';
   }
-  // console.log("CONTENT");
-  // console.log(content);
-
-  // Check for overlaps here
 
   //render json data
   return (<div class="dustbin" ref={drop} style={{ ...style, backgroundColor }}>

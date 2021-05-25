@@ -94,12 +94,11 @@ class ComponentMenu extends React.Component {
                   x: e,
                   y: position.y
                 },
-               
+
               }
             }, this.updateBlock)
           }} defaultValue={position.x} value={position.x}/>
           Y: <InputNumber onChange={e => {
-            console.log("Event:", e)
             this.setState({
               block: {
                 ...this.state.block,
