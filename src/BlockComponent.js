@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Moveable from 'react-moveable';
 import ComponentMenu from './ComponentMenu';
 import { dimension, point } from './utils';
-import Moveable from 'react-moveable';
 
 export default ({ block, Component, editContent, content }) => {
   const [showStyleMenu, setShowStyleMenu] = useState(false);
