@@ -1,4 +1,6 @@
 import { Input } from 'antd';
+import React from 'react';
+import { componentPropTypes, componentDefaultProps } from '../Types/Types';
 
 export default ({ className, position, size, setShowStyleMenu, setShowMoveable, style }) => (
 <Input
