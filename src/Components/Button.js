@@ -1,14 +1,36 @@
 import { Button } from 'antd';
+import React from 'react';
+import { componentPropTypes, componentDefaultProps } from '../Types/Types';
 
-export default ({className, position, size, setShowStyleMenu, setShowMoveable, style}) => (
-<Button
-  className={className}
-  style={{position: 'absolute', left: position.x, top: position.y, height: size.height, width: size.width, ...style}}
-  onClick={() => {
-    setShowMoveable(true)
-  }}
-  onDoubleClick={() => setShowStyleMenu(true)}
+const ButtonComponent = ({
+  className,
+  position: { x, y },
+  size: { width, height },
+  setShowStyleMenu,
+  setShowMoveable,
+  style,
+}) => (
+  <Button
+    className={className}
+    style={{
+      position: 'absolute',
+      left: x,
+      top: y,
+      height,
+      width,
+      ...style,
+    }}
+    onClick={() => {
+      setShowMoveable(true);
+    }}
+    onDoubleClick={() => setShowStyleMenu(true)}
   >
-  Click Me
-</Button>
-)
+    Click Me
+  </Button>
+);
+
+ButtonComponent.propTypes = componentPropTypes;
+
+ButtonComponent.defaultProps = componentDefaultProps;
+
+export default ButtonComponent;

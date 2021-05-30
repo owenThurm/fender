@@ -1,25 +1,41 @@
 import { Modal, InputNumber } from 'antd';
 import Draggable from 'react-draggable';
 import React from 'react';
+import PropTypes from 'prop-types';
+import Block from './Models/Block';
+
+const componentMenuPropTypes = {
+  block: PropTypes.instanceOf(Block).isRequired,
+  setShowStyleMenu: PropTypes.func.isRequired,
+  editContent: PropTypes.func.isRequired,
+  visible: PropTypes.bool.isRequired,
+};
 
 class ComponentMenu extends React.Component {
+  draggleRef = React.createRef();
+
   constructor(props) {
     super(props);
     this.state = {
       disabled: false,
-      bounds: { left: 0, top: 0, bottom: 0, right: 0 },
+      bounds: {
+        left: 0,
+        top: 0,
+        bottom: 0,
+        right: 0,
+      },
       block: props.block,
-    }
+    };
   }
 
-  draggleRef = React.createRef();
-
-  handleOk = e => {
-    this.props.setShowStyleMenu(false);
+  handleOk = () => {
+    const { setShowStyleMenu } = this.props;
+    setShowStyleMenu(false);
   };
 
-  handleCancel = e => {
-    this.props.setShowStyleMenu(false);
+  handleCancel = () => {
+    const { setShowStyleMenu } = this.props;
+    setShowStyleMenu(false);
   };
 
   onStart = (event, uiData) => {
@@ -36,17 +52,20 @@ class ComponentMenu extends React.Component {
   };
 
   updateBlock = () => {
-    this.props.editContent(this.state.block);
+    const { editContent } = this.props;
+    const { block } = this.state;
+
+    editContent(block);
   }
 
   render() {
     const { bounds, disabled } = this.state;
-    const { visible } = this.props;
-    const { position, style } = this.props.block;
+    const { visible, block } = this.props;
+    const { position: { x, y } } = block;
     return (
       <>
         <Modal
-          title={
+          title={(
             <div
               style={{
                 width: '100%',
@@ -72,11 +91,11 @@ class ComponentMenu extends React.Component {
             >
               Draggable Modal
             </div>
-          }
+          )}
           visible={visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
-          modalRender={modal => (
+          modalRender={(modal) => (
             <Draggable
               disabled={disabled}
               bounds={bounds}
@@ -86,33 +105,44 @@ class ComponentMenu extends React.Component {
             </Draggable>
           )}
         >
-          X: <InputNumber onChange={e => {
-            this.setState({
-              block: {
-                ...this.state.block,
-                position: {
-                  x: e,
-                  y: position.y
+          X:
+          <InputNumber
+            onChange={(e) => {
+              this.setState({
+                block: {
+                  ...block,
+                  position: {
+                    x: e,
+                    y,
+                  },
                 },
-
-              }
-            }, this.updateBlock)
-          }} defaultValue={position.x} value={position.x}/>
-          Y: <InputNumber onChange={e => {
-            this.setState({
-              block: {
-                ...this.state.block,
-                position: {
-                  x: position.x,
-                  y: e,
+              }, this.updateBlock);
+            }}
+            defaultValue={x}
+            value={x}
+          />
+          Y:
+          <InputNumber
+            onChange={(e) => {
+              this.setState({
+                block: {
+                  block,
+                  position: {
+                    x,
+                    y: e,
+                  },
                 },
-              }
-            }, this.updateBlock)
-          }} defaultValue={position.y} value={position.y}/>
+              }, this.updateBlock);
+            }}
+            defaultValue={y}
+            value={y}
+          />
         </Modal>
       </>
     );
   }
 }
+
+ComponentMenu.propTypes = componentMenuPropTypes;
 
 export default ComponentMenu;

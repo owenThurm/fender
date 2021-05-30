@@ -1,104 +1,133 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Moveable from 'react-moveable';
+import PropTypes from 'prop-types';
 import ComponentMenu from './ComponentMenu';
 import { dimension, point } from './utils';
-import Moveable from 'react-moveable';
+import Block from './Models/Block';
 
-export default ({ block, Component, editContent, content }) => {
+const propTypes = {
+  block: PropTypes.instanceOf(Block).isRequired,
+  Component: PropTypes.func.isRequired,
+  editContent: PropTypes.func.isRequired,
+  content: PropTypes.arrayOf(
+    PropTypes.instanceOf(Block),
+  ).isRequired,
+};
+
+const BlockComponent = ({
+  block,
+  Component,
+  editContent,
+  content,
+}) => {
+  const { id: blockId, position: blockPosition, size: blockSize } = block;
   const [showStyleMenu, setShowStyleMenu] = useState(false);
   const [position, setPosition] = useState({
-    x: block.position.x,
-    y: block.position.y,
-  })
-  const [size, setSize] = useState(block.size)
+    x: blockPosition.x,
+    y: blockPosition.y,
+  });
+  const [size, setSize] = useState(blockSize);
   const [showMoveable, setShowMoveAble] = useState(false);
   const [target, setTarget] = React.useState();
   const [elementGuidelines, setElementGuidelines] = React.useState([]);
   React.useEffect(() => {
-      setTarget(document.querySelector(`.${'a' + block._uid}`));
-      let elements = [];
-      content.forEach(({ _uid }) => {
-        if(_uid !== block._uid) {
-          elements.push(document.querySelector(`.${'a' + _uid}`))
-        }
-      })
-      setElementGuidelines(elements);
+    setTarget(document.querySelector(`.a${blockId}`));
+    const elements = [];
+    content.forEach(({ id }) => {
+      if (id !== blockId) {
+        elements.push(document.querySelector(`.a${blockId}`));
+      }
+    });
+    setElementGuidelines(elements);
   }, []);
 
   const updatePosition = () => {
     const { x, y } = position;
-    let updatedBlock = {
-      ...block,
-      position: point(x, y),
-    }
-    editContent(updatedBlock);
-  }
+    block.setPosition(x, y);
+  };
 
   const updateSize = () => {
-    let updatedBlock = {
-      ...block,
-      size: size,
-      position: position,
-    }
-    editContent(updatedBlock);
-  }
+    const { width, height } = size;
+    block.setSize(width, height);
+  };
 
-  const onDrag = e => {
-    setPosition(({x, y}) => ({
+  const onDrag = (e) => {
+    setPosition(({ x, y }) => ({
       x: x + e.beforeDelta[0],
       y: y + e.beforeDelta[1],
     }));
-  }
+  };
 
   const onResize = ({ direction, delta }) => {
-
-    const deltaX = delta[0]
-    const deltaY = delta[1]
+    const deltaX = delta[0];
+    const deltaY = delta[1];
 
     setSize(({ width, height }) => dimension(width + deltaX, height + deltaY));
-    if(direction[0] === -1 && direction[1] === -1) {
-      setPosition(({x, y}) => point(x - deltaX, y - deltaY));
-    } else if(direction[0] === -1 && direction[1] === 1) {
-      setPosition(({x, y}) => point(x - deltaX, y));
+    if (direction[0] === -1 && direction[1] === -1) {
+      setPosition(({ x, y }) => point(x - deltaX, y - deltaY));
+    } else if (direction[0] === -1 && direction[1] === 1) {
+      setPosition(({ x, y }) => point(x - deltaX, y));
     } else if (direction[0] === 1 && direction[1] === -1) {
-      setPosition(({x, y}) => point(x, y - deltaY));
+      setPosition(({ x, y }) => point(x, y - deltaY));
     }
-  }
+  };
 
-  return(
+  return (
     <>
       <div className="container">
         <Component
           setShowMoveable={setShowMoveAble}
           position={position}
           size={size}
-          className={`${'a' + block._uid}`}
+          className={`a${block.id}`}
           setShowStyleMenu={setShowStyleMenu}
           style={block.style}
         />
 
-        {showMoveable ? <Moveable
+        {showMoveable ? (
+          <Moveable
             target={target}
-            draggable={true}
-            resizable={true}
-            snappable={true}
+            draggable
+            resizable
+            snappable
             origin={false}
             elementGuidelines={elementGuidelines}
             horizontalGuidelines={[410]}
             verticalGuidelines={[410]}
-            snapCenter={true}
+            snapCenter
             throttleDrag={0}
-            bounds={{"left":20,"top":0,"right":820,"bottom":820}}
+            bounds={{
+              left: 20,
+              top: 0,
+              right: 820,
+              bottom: 820,
+            }}
             startDragRotate={0}
             throttleDragRotate={0}
             zoom={1}
-            padding={{"left":0,"top":0,"right":0,"bottom":0}}
+            padding={{
+              left: 0,
+              top: 0,
+              right: 0,
+              bottom: 0,
+            }}
             onDrag={onDrag}
             onDragEnd={updatePosition}
             onResize={onResize}
             onResizeEnd={updateSize}
-        /> : ''}
+          />
+        ) : ''}
       </div>
-      <ComponentMenu editContent={editContent} block={block} setShowStyleMenu={setShowStyleMenu} visible={showStyleMenu}/>
+      <ComponentMenu
+        editContent={editContent}
+        block={block}
+        setShowStyleMenu={setShowStyleMenu}
+        visible={showStyleMenu}
+      />
     </>
-  )
-}
+  );
+};
+
+BlockComponent.propTypes = propTypes;
+
+export default BlockComponent;
