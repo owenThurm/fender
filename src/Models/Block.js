@@ -1,4 +1,6 @@
 import { v4 } from 'uuid';
+import Dimension from './Dimension';
+import Point from './Point';
 
 class Block {
   constructor(component, position, size, style) {
@@ -7,6 +9,14 @@ class Block {
     this.position = position;
     this.size = size;
     this.style = style;
+  }
+
+  setPosition(x, y) {
+    this.position = new Point(x, y);
+  }
+
+  setSize(width, height) {
+    this.size = new Dimension(width, height);
   }
 
   toJSON() {

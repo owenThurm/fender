@@ -43,20 +43,12 @@ const BlockComponent = ({
 
   const updatePosition = () => {
     const { x, y } = position;
-    const updatedBlock = {
-      ...block,
-      position: point(x, y),
-    };
-    editContent(updatedBlock);
+    block.setPosition(x, y);
   };
 
   const updateSize = () => {
-    const updatedBlock = {
-      ...block,
-      size,
-      position,
-    };
-    editContent(updatedBlock);
+    const { width, height } = size;
+    block.setSize(width, height);
   };
 
   const onDrag = (e) => {
