@@ -1,11 +1,10 @@
-import { Box } from './Box';
+import React from 'react';
+import Box from './Box';
 
-export default ({ addContent }) => {
-  return (
-    <div style={{ overflow: 'hidden', clear: 'both' }}>
-      <Box addContent={addContent} name="Input" component="input"/>
-      <Box addContent={addContent} name="Card" component="card"/>
-      <Box addContent={addContent} name="Button" component="button"/>
-		</div>
-  )
-}
+export default () => (
+  <div style={{ overflow: 'hidden', clear: 'both' }}>
+    <Box name="Input" component="input" />
+    <Box name="Card" component="card" />
+    <Box name="Button" component="button" />
+  </div>
+);
