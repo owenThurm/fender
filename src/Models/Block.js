@@ -1,16 +1,8 @@
 import { v4 } from 'uuid';
 
 class Block {
-  constructor(props) {
-    const {
-      id = v4(),
-      component,
-      position,
-      size,
-      style,
-    } = props;
-
-    this.id = id;
+  constructor(component, position, size, style) {
+    this.id = v4();
     this.component = component;
     this.position = position;
     this.size = size;

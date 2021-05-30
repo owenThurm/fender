@@ -1,7 +1,5 @@
 class Dimension {
-  constructor(props) {
-    const { width, height } = props;
-
+  constructor(width, height) {
     this.width = width;
     this.height = height;
   }

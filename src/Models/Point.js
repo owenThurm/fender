@@ -1,7 +1,5 @@
 class Point {
-  constructor(props) {
-    const { x, y } = props;
-
+  constructor(x, y) {
     this.x = x;
     this.y = y;
   }
