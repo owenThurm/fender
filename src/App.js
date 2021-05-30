@@ -4,7 +4,7 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import { dimension } from './utils';
 import DesignMenu from './DesignMenu';
-import { Container } from './Container';
+import Container from './Container';
 import Block from './Models/Block';
 
 const componentDefaultAttributes = {
